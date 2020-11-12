@@ -7,10 +7,11 @@ public class Main {
         readInput("input.txt");
         System.out.println(mazes.size());
 //        System.out.println(temp[0][0].n + "" + temp[0][0].s + temp[0][0].w + temp[0][0].e);
-        System.out.println(dfs(mazes.get(0)));
-        System.out.println(dfs(mazes.get(1)));
+//        System.out.println(dfs(mazes.get(0)));
+//        System.out.println(dfs(mazes.get(1)));
         System.out.println(dfs(mazes.get(2)));
-        System.out.println(dfs(mazes.get(3)));
+//        System.out.println(dfs(mazes.get(3)));
+        System.out.println(Arrays.deepToString(mazes.get(2)).replace("], ", "]\n"));
 
 
 
@@ -40,22 +41,21 @@ public class Main {
             this.e = 1;
         }
 
-
+        @Override
+        public String toString() {
+            return "" + n + s + w + e;
+        }
     }
 
     public static void readInput(String fName) {
         try{
-            int numMazes;
-            int sizeMaze;
             String line;
-            Cell[][] tempMaze;
             File in = new File(fName);
             Scanner scan = new Scanner(in);
-            numMazes = Integer.valueOf(scan.nextLine()); //first line is number of mazes
-            sizeMaze = Integer.valueOf(scan.nextLine()); //second line is num "n" for the nxn maze
-
+            int numMazes = Integer.valueOf(scan.nextLine()); //first line is number of mazes
+            int sizeMaze = Integer.valueOf(scan.nextLine()); //second line is num "n" for the nxn maze
+            Cell[][] tempMaze = new Cell[sizeMaze][sizeMaze];
             for(int i = 0; i < numMazes; i++){
-                tempMaze = new Cell[sizeMaze][sizeMaze];
                 for(int j = 0; j < sizeMaze; j++){
                     line = scan.nextLine();
                     for(int k = 0; k < line.length(); k += 4){
@@ -65,12 +65,14 @@ public class Main {
                         int s = Integer.valueOf(temp[1]);
                         int w = Integer.valueOf(temp[2]);
                         int e = Integer.valueOf(temp[3]);
-                        //System.out.println("" + n + s + w + e);
+//                        System.out.println("" + n + s + w + e);
                         tempMaze[j][k / 4] = new Cell(n, s, w, e);
                     }
                 }
                 mazes.add(tempMaze);
                 scan.nextLine();
+                tempMaze = new Cell[sizeMaze][sizeMaze];
+
             }
             scan.close();
 
